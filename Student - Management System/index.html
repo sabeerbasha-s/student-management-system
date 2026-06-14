@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Student Management System</h1>
+    <input type="text" id="name" placeholder="ENTER STUDENT NAME">
+    <input type="text" id="subject" placeholder="ENTER SUBJECT NAME">
+    <input type="number" id="mark" placeholder="ENTER STUDENT MARK">
+
+    <button onclick="submitStudent()">SUBMIT</button>
+    <h2>
+           TOTAL STUDENT COUNT :
+            <span id="countst">0</span>
+        </h2>
+
+<table border="1">
+
+     <tr>
+        <th>NAME</th>
+        <th>SUBJECT</th>
+        <th>MARK</th>
+        <th>GRADE</th>
+        <th>REMOVE</th>
+    </tr>
+
+         <tbody id="studenttable">
+
+        </tbody>
+</table>
+</div>
+<script>
+
+let count = 0;
+
+function submitStudent() {
+
+    let name = document.getElementById("name").value;
+    let subject = document.getElementById("subject").value;
+    let mark = document.getElementById("mark").value;
+
+    if(name === "" || subject === "" || mark === "") {
+        alert("Please enter all details!");
+        return;
+    }
+
+    let grade = "";
+    if(mark >= 90) {
+
+        grade = "A (EXCELLENT)";
+
+    }
+    else if(mark >= 75) {
+
+        grade = "B (GOOD)";
+
+    }
+    else if(mark >= 50) {
+
+        grade = "C (AVERAGE)";
+
+    }
+    else {
+
+        grade = "FAIL";
+
+    }
+        let row = `
+            <tr>
+               <td>${name}</td>
+               <td>${subject}</td>
+               <td>${mark}</td>
+               <td>${grade}</td>
+            <td>
+                <button onclick="deleteRow(this)">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    `;
+
+    document.getElementById("studenttable").innerHTML += row;
+
+    count++;
+
+    document.getElementById("countst").innerText = count;
+
+    document.getElementById("name").value = "";
+    document.getElementById("subject").value = "";
+    document.getElementById("mark").value = "";
+
+    document.getElementById("name").focus();
+}
+
+function deleteRow(button) {
+
+    button.parentElement.parentElement.remove();
+
+    count--;
+
+    document.getElementById("countst").innerText = count;
+}
+
+</script>
+
+</body>
+</html>
